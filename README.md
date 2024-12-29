@@ -1,2 +1,2 @@
 # SCISplat
-Code is under cleaning...
+The code is currently undergoing cleanup.
