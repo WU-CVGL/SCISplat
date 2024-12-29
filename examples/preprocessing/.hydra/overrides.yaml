@@ -1,5 +1,0 @@
-- SCENE_DIR=/run/determined/workdir/home/gsplat/examples/data/sci_nerf/ablation_study/compression_rate/factory32
-- query_frame_num=1
-- shared_camera=true
-- max_query_pts=4096
-- make_reproj_video=true
