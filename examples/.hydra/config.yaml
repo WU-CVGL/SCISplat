@@ -1,0 +1,55 @@
+seed: 0
+img_size: 1024
+viz_ip: 127.0.0.1
+debug: false
+center_order: true
+mixed_precision: fp16
+extract_color: true
+filter_invalid_frame: true
+comple_nonvis: true
+query_frame_num: 1
+robust_refine: 2
+BA_iters: 1
+camera_type: SIMPLE_PINHOLE
+load_gt: false
+visualize: false
+fmat_thres: 4.0
+max_reproj_error: 4.0
+init_max_reproj_error: 4.0
+max_query_pts: 2048
+dense_depth: false
+shared_camera: true
+SCENE_DIR: /run/determined/workdir/home/gsplat/examples/data/sci_nerf/ablation_study/compression_rate/factory32
+resume_ckpt: /run/determined/workdir/home/vggsfm/ckpt/vggsfm_v2_0_0.bin
+query_by_interval: false
+query_method: aliked
+use_poselib: true
+make_reproj_video: true
+MODEL:
+  _target_: vggsfm.models.VGGSfM
+  TRACK:
+    _target_: vggsfm.models.TrackerPredictor
+    efficient_corr: false
+    COARSE:
+      stride: 4
+      down_ratio: 2
+      FEATURENET:
+        _target_: vggsfm.models.BasicEncoder
+      PREDICTOR:
+        _target_: vggsfm.models.BaseTrackerPredictor
+    FINE:
+      FEATURENET:
+        _target_: vggsfm.models.ShallowEncoder
+      PREDICTOR:
+        _target_: vggsfm.models.BaseTrackerPredictor
+        depth: 4
+        corr_levels: 3
+        corr_radius: 3
+        latent_dim: 32
+        hidden_size: 256
+        fine: true
+        use_spaceatt: false
+  CAMERA:
+    _target_: vggsfm.models.CameraPredictor
+  TRIANGULAE:
+    _target_: vggsfm.models.Triangulator
